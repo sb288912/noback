@@ -245,47 +245,28 @@ class AI{
         }
 
         // map model to the appropriate driver
-        if (!options.model || options.model === 'gpt-4o' || options.model === 'gpt-4o-mini') {
+        if (options.model.startsWith("openai/")) {
             driver = 'openai-completion';
         }else if(
-            options.model === 'claude-3-haiku-20240307' ||
-            options.model === 'claude-3-5-sonnet-20240620' ||
-            options.model === 'claude-3-5-sonnet-20241022' ||
-            options.model === 'claude-3-5-sonnet-latest' ||
-            options.model === 'claude-3-7-sonnet-latest'
+            options.model.startsWith("anthropic/")
         ){
             driver = 'claude';
         }else if(options.model === 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo' || options.model === 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo' || options.model === 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo' || options.model === `google/gemma-2-27b-it`){
             driver = 'together-ai';
         }else if(options.model === 'mistral-large-latest' || options.model === 'codestral-latest'){
             driver = 'mistral';
-        }else if([
-            "distil-whisper-large-v3-en",
-            "gemma2-9b-it",
-            "gemma-7b-it",
-            "llama-3.1-70b-versatile",
-            "llama-3.1-8b-instant",
-            "llama3-70b-8192",
-            "llama3-8b-8192",
-            "llama3-groq-70b-8192-tool-use-preview",
-            "llama3-groq-8b-8192-tool-use-preview",
-            "llama-guard-3-8b",
-            "mixtral-8x7b-32768",
-            "whisper-large-v3"
-        ].includes(options.model)) {
+        }else if(options.model.startsWith("groq/")) {
             driver = 'groq';
-        }else if(options.model === 'grok-beta') {
+        }else if(options.model.startsWith("xai/")) {
             driver = 'xai';
         }
         else if(
-            options.model === 'deepseek-chat' ||
-            options.model === 'deepseek-reasoner'
+            options.model.startsWith("deepseek/")
         ){
             driver = 'deepseek';
         }
         else if(
-            options.model === 'gemini-1.5-flash' ||
-            options.model === 'gemini-2.0-flash'
+            options.model.startsWith("google/")
         ){
             driver = 'gemini';
         }
